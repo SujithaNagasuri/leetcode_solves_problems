@@ -1,0 +1,63 @@
+We are given an array asteroids of integers representing asteroids in a row.
+
+For each asteroid, the absolute value represents its size, and the sign represents its direction (positive meaning right, negative meaning left). Each asteroid moves at the same speed.
+
+Find out the state of the asteroids after all collisions. If two asteroids meet, the smaller one will explode. If both are the same size, both will explode. Two asteroids moving in the same direction will never meet.
+
+Example 1:
+
+Input: asteroids = [5,10,-5]
+Output: [5,10]
+Explanation: The 10 and -5 collide resulting in 10. The 5 and 10 never collide.
+Example 2:
+
+Input: asteroids = [8,-8]
+Output: []
+Explanation: The 8 and -8 collide exploding each other.
+
+Approach
+If the current asteroid is positive, it will not collide with any previous asteroids, so we simply push it onto the stack.
+If the current asteroid is negative, it will collide with the previous asteroid(s) already in the stack:
+a) If the top of the stack is negative, both asteroids will pass each other and keep moving in their respective directions. So, we push the current asteroid onto the stack.
+b) If the top of the stack is positive and has a greater magnitude than the current asteroid, the current asteroid will be destroyed, so we do nothing.
+c) If the top of the stack is positive and has a smaller magnitude than the current asteroid, the top of the stack will be destroyed, so we pop it and repeat the collision check with the new top of the stack (if any).
+At the end, we return the remaining asteroids in the stack from bottom to top, which represent the surviving asteroids.
+
+
+class Solution {
+    public int[] asteroidCollision(int[] asteroids) 
+    {
+        Stack<Integer> stack = new Stack<>();
+        for(int i:asteroids)
+        {
+            if(i > 0 || stack.isEmpty())
+            {
+                stack.push(i);
+            }
+            else{
+                
+                     while(!stack.isEmpty() && stack.peek() > 0 && stack.peek() < Math.abs(i))
+                    {
+                        stack.pop();
+                    }
+                    if(!stack.isEmpty() && stack.peek() == Math.abs(i))
+                    {
+                        stack.pop();
+                    }
+                    else{
+                        if(stack.isEmpty() || stack.peek() < 0)
+                        {
+                            stack.push(i);
+                        }
+                    }
+               
+            }
+        }
+        int[] res = new int[stack.size()];
+        for (int i = stack.size() - 1; i >= 0; i--) {
+            res[i] = stack.pop();
+        }
+        return res;
+        
+    }
+}
