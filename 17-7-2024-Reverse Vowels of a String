@@ -1,0 +1,43 @@
+Given a string s, reverse only all the vowels in the string and return it.
+
+The vowels are 'a', 'e', 'i', 'o', and 'u', and they can appear in both lower and upper cases, more than once.
+
+Example 1:
+
+Input: s = "hello"
+Output: "holle"
+Example 2:
+
+Input: s = "leetcode"
+Output: "leotcede"
+
+Approach:
+1.traverse along the string find out vowel if it is vowel replace it with "_" and push that vowel into the stack
+2. again traverse the string if it is "_" replace it with the top element of the stack i.e; pop the character from the stack and repalce it with '_'
+
+class Solution {
+    public String reverseVowels(String s) 
+    {
+        Stack<Character> ch = new Stack<>();
+        char[] c = s.toCharArray();
+        for(int i=0;i<c.length;i++)
+        {
+    
+            if( (Character.toLowerCase(c[i]) == 'a') || (Character.toLowerCase(c[i]) == 'e') ||  (Character.toLowerCase(c[i]) == 'i') || (Character.toLowerCase(c[i]) == 'o') || (Character.toLowerCase(c[i]) == 'u'))
+            {
+                ch.push(c[i]);
+                c[i] = '_'; 
+                
+            }
+        }
+        for(int i=0;i<c.length;i++)
+        {
+            if(c[i] == '_')
+            {
+                c[i] = ch.pop();
+            }
+        }
+        return new String(c);
+        
+    }
+}
