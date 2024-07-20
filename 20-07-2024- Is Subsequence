@@ -1,0 +1,44 @@
+
+Given two strings s and t, return true if s is a subsequence of t, or false otherwise.
+
+A subsequence of a string is a new string that is formed from the original string by deleting some (can be none) of the characters without disturbing the relative positions of the remaining characters. (i.e., "ace" is a subsequence of "abcde" while "aec" is not).
+Example 1:
+
+Input: s = "abc", t = "ahbgdc"
+Output: true
+Example 2:
+
+Input: s = "axc", t = "ahbgdc"
+Output: false
+
+Approach:
+1. 2 indexes are maintained i for s and j for t
+2. increement the i,j,count index if charcter at ith index of a and jth index of t are equal 
+3. otherwise increement jth index only 
+4. if we found the sequence then the length of count is equal to 
+
+class Solution {
+    public boolean isSubsequence(String s, String t) 
+    {
+        int i=0,j=0,count =0;
+
+        while((i<s.length()) && (j<t.length()))
+        {
+            if(s.charAt(i) == t.charAt(j))
+            {
+                i++;
+                j++;
+                count++;
+            }
+            else{
+                j++;
+            }
+        }
+        return count == s.length();
+
+
+    }
+}
+
+
+
