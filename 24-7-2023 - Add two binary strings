@@ -1,0 +1,88 @@
+Given two binary strings a and b, return their sum as a binary string.
+Example 1:
+Input: a = "11", b = "1"
+Output: "100"
+Example 2:
+
+Input: a = "1010", b = "1011"
+Output: "10101"
+
+Constraints:
+1 <= a.length, b.length <= 104
+a and b consist only of '0' or '1' characters.
+Each string does not contain leading zeros except for the zero itself.
+
+
+class Solution {
+    public String addBinary(String a, String b) {
+        
+       int i=a.length()-1, j=b.length()-1;
+        char carry = '0';
+        char sum = '0';
+        StringBuilder str = new StringBuilder();
+        
+        while(i >= 0 || j >= 0)
+        {
+                char c1 = (i < 0)? '0' : a.charAt(i); // if two strings are of different length add 0 in place of any string is completed and other string contains some nums
+                char c2 = (j < 0)? '0' : b.charAt(j);
+
+                
+                if( carry == '0' && c1 == '0' && c2 == '0' )
+                {
+                    sum = '0';
+                    carry = '0';
+                }
+                else if(carry == '1' && c1 == '0' && c2 == '0')
+                {
+                    sum = '1';
+                    carry = '0';
+                }
+                else if(carry == '0' && c1 == '0' && c2 == '1')
+                {
+                    sum = '1';
+                    carry = '0';
+                }
+                else if(carry == '1' && c1 == '0' && c2 == '1')
+                {
+                    sum = '0';
+                    carry = '1';
+                }
+                else if(carry == '0' && c1 == '1' && c2 == '0')
+                {
+                    sum = '1';
+                    carry = '0';
+                }
+                else if(carry == '1' && c1 == '1' && c2 == '0')
+                {
+                    sum = '0';
+                    carry = '1';
+                }
+                else if(carry == '0' && c1 == '1' && c2 == '1')
+                {
+                    sum = '0';
+                    carry = '1';
+                }
+                else if(carry == '1' &&  c1 == '1' && c2 == '1')
+                {
+                    sum = '1';
+                    carry = '1';
+                }
+                
+                str.append(sum);
+                
+                i--;
+                j--;
+                
+        }
+
+        if(carry == '1')
+        {
+            str.append('1');
+        }
+        
+
+        str.reverse();
+       
+        return str.toString();
+    }
+}
