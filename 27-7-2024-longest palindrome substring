@@ -1,0 +1,59 @@
+Given a string s, return the longest 
+palindromic
+ 
+substring
+ 
+Example 1:
+
+Input: s = "babad"
+Output: "bab"
+Explanation: "aba" is also a valid answer.
+Example 2:
+
+Input: s = "cbbd"
+Output: "bb"
+
+
+Appraoch:
+1. we consider every character in the string as center and moves left and right until the chracters are not equal or left pointer 
+reached 0th index or right pointer reached to the end.
+2. in every iteration if the length of the current palindrome string is greater than the previois string update length and string.
+3. for odd length of palindrome string left =i,right =i;
+4. for even length of palindrome string left =i,right=i+1;
+remaining all are same.
+
+class Solution {
+    public String longestPalindrome(String s) 
+    {
+        int maxlen =0;
+        String res ="";
+        for(int i=0;i<s.length();i++)
+        {
+            int left = i,right=i;
+            while(left >=0 && right < s.length() && s.charAt(left) == s.charAt(right))
+            {
+                if( (right-left)+1 > maxlen)
+                {
+                    maxlen =  (right-left)+1;
+                    res= s.substring(left,right+1);
+                }
+                left--;
+                right++;
+            }
+
+            left =i;right =i+1;
+             while(left >=0 && right < s.length() && s.charAt(left) == s.charAt(right))
+            {
+                if( (right-left)+1 > maxlen)
+                {
+                    maxlen =(right-left)+1;
+                    res= s.substring(left,right+1);
+                }
+                left--;
+                right++;
+            }
+        }
+        return res;
+        
+    }
+}
