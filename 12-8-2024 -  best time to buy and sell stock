@@ -1,0 +1,61 @@
+You are given an array prices where prices[i] is the price of a given stock on the ith day.
+
+You want to maximize your profit by choosing a single day to buy one stock and choosing a different day in the future to sell that stock.
+
+Return the maximum profit you can achieve from this transaction. If you cannot achieve any profit, return 0.
+
+ 
+
+Example 1:
+
+Input: prices = [7,1,5,3,6,4]
+Output: 5
+Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.
+Note that buying on day 2 and selling on day 1 is not allowed because you must buy before you sell.
+Example 2:
+
+Input: prices = [7,6,4,3,1]
+Output: 0
+Explanation: In this case, no transactions are done and the max profit = 0.
+
+Approach 1: Bruteforce
+1. for evry pair calcualte profit and check with maximum profit
+
+approach 2 : two pointer
+Initialize buy to 0 and sell to 1 to start with the first two days.
+Iterate through the prices array using a while loop with the condition sell < prices.length.
+Compare the prices at the buy and sell indices:
+If the price at buy is greater than or equal to the price at sell, update buy to the current sell index. This ensures that we always consider buying at the lowest possible price.
+If the price at buy is less than the price at sell, calculate the potential profit as prices[sell] - prices[buy]. Update the profit variable with the maximum of its current value and the potential profit.
+Increment the sell pointer to move to the next potential selling day.
+Finally, return the maximum profit calculated.
+
+
+class Solution {
+    public int maxProfit(int[] nums) {
+       
+    //    for(int i=0;i<nums.length;i++)
+    //    {
+    //     for(int j=i+1;j<nums.length;j++)
+    //     {
+    //         int profit = nums[j]-nums[i];
+    //         max_profit = Math.max(profit,max_profit);
+    //     }
+    //    }
+
+        int buy =0,sell =1, max_profit = 0;
+        while(sell < nums.length)
+        {
+            if(nums[buy] >=  nums[sell])
+            {
+                buy = sell;
+            }
+            else{
+                int profit = nums[sell] - nums[buy];
+                max_profit = Math.max(profit,max_profit);
+            }
+            sell++;
+        }
+       return  max_profit;
+    }
+}
