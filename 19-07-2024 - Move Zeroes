@@ -9,6 +9,29 @@ Example 2:
 Input: nums = [0]
 Output: [0]
 
+Approach1:
+1. copy all non zero elements from the begining index
+2. then assign remaining all the elements as 0;
+class Solution {
+    public void moveZeroes(int[] nums) 
+    {
+        int ind = 0;
+        for(int i:nums)
+        {
+            if(i!=0)
+            {
+                nums[ind++] = i;
+            }
+        }
+        while(ind < nums.length)
+        {
+            nums[ind++] = 0;
+        }
+        
+    }
+
+
+
 class Solution {
     public void moveZeroes(int[] nums) 
     {
