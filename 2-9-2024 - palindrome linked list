@@ -1,0 +1,56 @@
+Given the head of a singly linked list, return true if it is a palindrome or false otherwise.
+
+ 
+
+Example 1:
+Input: head = [1,2,2,1]
+Output: true
+Example 2:
+Input: head = [1,2]
+Output: false
+
+approach:
+1.find middle of the linkelisy
+2.reverse the second part
+3. compare first half with second half
+
+class Solution {
+    
+    public ListNode reverse(ListNode head)
+    {
+        ListNode prev = null,current = head,next = null;
+        while(current != null)
+        {
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+        return prev;
+        
+    }
+    
+    public boolean isPalindrome(ListNode head) 
+    {
+        ListNode fp = head;
+        ListNode sp = head;
+        while(fp!=null &&fp.next != null)
+        {
+            sp = sp.next;
+            fp = fp.next.next;
+        }
+      
+        ListNode revhead = reverse(sp);
+        while(revhead != null)
+        {
+             if(head.val != revhead.val)
+            {
+                return false;
+            }
+            head = head.next;
+            revhead = revhead.next;
+        }
+        return true;
+        
+    }
+}
