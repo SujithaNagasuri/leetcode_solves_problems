@@ -1,0 +1,23 @@
+class Solution {
+    public int distinctAverages(int[] nums) 
+    {
+        int count =0;
+        int first =0,last=nums.length-1;
+        Arrays.sort(nums);
+        ArrayList<Double> res = new ArrayList<>();
+        while(first<last)
+        {
+            Double avg = (nums[first]+nums[last])/2.0;
+            if(!res.contains(avg))
+            {
+                count++;
+                res.add(avg);
+            }
+            first++;
+            last--;
+        }
+
+        return count;
+        
+    }
+}
